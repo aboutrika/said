@@ -16,7 +16,7 @@ if($_SESSION["isCord"] != 1)
 //If form is submitted using POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //Validations
-    if (isset($_POST['facultyName']) && isset($_POST['facultyEmail']) && isset($_POST['facultyDesignation']) && isset($_POST['supervisingQuota']) && isset($_POST['emailSend'])){
+    if (isset($_POST['jobTitle']) && isset($_POST['jobEmail']) && isset($_POST['jobDesignation']) && isset($_POST['supervisingQuota']) && isset($_POST['emailSend'])){
 
         //Getting values from POST and Sanitizing
         $name = filter_input(INPUT_POST,'jobName',FILTER_SANITIZE_SPECIAL_CHARS);
@@ -32,9 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password = random_password();
         }
 
-        //Check if faculty already exists with email
+        //Check if job already exists with email
 
-        $check = $conn->query("SELECT facultyId FROM faculty WHERE facultyEmail = '$email' LIMIT 1");
+        $check = $conn->query("SELECT jobId FROM job WHERE jobEmail = '$email' LIMIT 1");
         if ($check->num_rows>0){
             header('Location:' . $_SERVER['PHP_SELF'] . '?status=ae');die;
         }
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             // prepare and bind
-            $stmt = $conn->prepare("INSERT INTO faculty (facultyName, facultyEmail, designation, facultyPhoneNo, facultyPassword ) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO faculty (jobTitle, jobEmail, designation, jobContact, jobPassword ) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $name, $email, $design, $contact, $password);
 
             // set parameters and execute
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $currentLoad = 0;
 
             //Also add to work_load
-            $stmt = $conn->prepare("INSERT INTO work_load (facultyId, totalLoad, currentLoad) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO work_load (jobId, totalLoad, currentLoad) VALUES (?, ?, ?)");
             $stmt->bind_param("iii", $last_id, $quota, $currentLoad);
             $stmt->execute();
             if ($stmt->affected_rows > 0) {
@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </form>
 
   </div>
-<!--Code for register faculty ends here-->
+<!--Code for register job ends here-->
 
     </div>
     <div class="col-md-2"></div>
