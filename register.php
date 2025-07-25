@@ -1,5 +1,5 @@
 <?php
-$title="OMS";
+$title="TPAWU";
 $subtitle="Register";
 require_once("includes/header.php");
 require_once("includes/config.php");
@@ -20,9 +20,9 @@ session_start();
 
 <?php
 /**
- * Created by LIPAU.
- * User: Unstopperble
- * Date: 24/04/2020
+ * Created by MAESTRO.
+ * User: Maestro
+ * Date: 25/07/2025
  * Time: 10:24
  */
 
@@ -127,7 +127,7 @@ if (isset($_GET['status'])){
 
 ?>
 
-<title>Register | OMS </title>
+<title>Register | TPAWU </title>
 
 
 </head>
